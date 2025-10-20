@@ -1,7 +1,7 @@
-## Cycloid Motion
+# Cycloid Motion
 
-# Languages
+### Languages
 html, scss
 
-# Description
+### Description
 My first original fun little project with Git

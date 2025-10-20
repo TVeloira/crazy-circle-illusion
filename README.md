@@ -1,4 +1,4 @@
-# Cycloid Motion
+# Crazy Circle Illusion
 
 ### Languages
 html, scss

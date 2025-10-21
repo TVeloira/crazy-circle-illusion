@@ -29,8 +29,10 @@ main { position: relative; }
         border: solid 1px black;
       }
       @for $i from 1 through 8 {
+        $count: 8;
+        $step: calc(180deg / $count);
         .circle-path:nth-child(#{$i}) {
-          transform: translate(-50%, -50%) rotate( #{($i - 1) *  22.5}deg );
+          transform: translate(-50%, -50%) rotate( #{($i - 1) * $step} );
         }
       }
     }

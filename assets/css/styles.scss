@@ -1,4 +1,11 @@
+:root {
+  --white: #f8f8f8ff;
+  --dark: #282f38ff;
+  --blue: #afe8d8ff;
+  --pink: #ff9fa8ff;
+}
 html, body { margin: 0; padding: 0; }
+body { background-color: var(--blue); }
 
 main { position: relative; }
 .crazy-circle {
@@ -18,7 +25,7 @@ main { position: relative; }
       height: 100%;
       border-radius: 50%;
       position: relative;
-      background-color: red;
+      background-color: var(--dark);
       .circle-path {
         position: absolute;
         top: 50%;
@@ -41,7 +48,7 @@ main { position: relative; }
           height: 100%;
           aspect-ratio: 1 / 1;
           border-radius: 50%;
-          background-color: white;
+          background-color: var(--pink);
           animation: slide-x 3s ease-in-out infinite alternate;
         }
       }
@@ -52,7 +59,7 @@ main { position: relative; }
           transform: translate(-50%, -50%) rotate( #{($i - 1) * $step} );
         }
       }
-      $delay-step: 0.38s;
+      $delay-step: 0.37s;
       @for $i from 1 through $count {
         .circle-path:nth-child(#{$i}) .circle {
           animation-delay: #{($i - 1) * $delay-step};

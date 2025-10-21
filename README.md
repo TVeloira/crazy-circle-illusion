@@ -4,4 +4,4 @@
 html, scss
 
 ### Description
-My first original fun little project with Git
+My first original fun little project alongside Git

@@ -1,1 +1,17 @@
 html, body { margin: 0; padding: 0; }
+
+main { position: relative; }
+.crazy-circle {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1.5vw;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .crazy-circle-container {
+    border: solid 1px black;
+    width: min(100%, calc(100dvh - 3.2vw));
+    aspect-ratio: 1 / 1;
+  }
+}

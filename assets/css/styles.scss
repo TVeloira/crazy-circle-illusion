@@ -28,10 +28,7 @@ main { position: relative; }
       position: relative;
       background-color: var(--dark);
 
-      /* animation settings */
-      $duration: 2s;
-      $path-fade: $duration * 2;
-
+      $timing: 2s;
       .circle-path {
         position: absolute;
         top: 50%;
@@ -43,7 +40,7 @@ main { position: relative; }
         overflow: hidden;
 
         --i: 1;
-
+        --reveal: 0;
         &::before {
           content: "";
           position: absolute;
@@ -51,9 +48,11 @@ main { position: relative; }
           width: 100%;
           height: 2px;
           background: var(--white);
+          transition-property: opacity;
+          transition-duration: 0.5s;
+          transition-timing-function: ease;
+          transition-delay: 0s;
           opacity: 0;
-          transition: opacity 0.5s ease;
-          transition-delay: calc((var(--i) - 1) * #{$path-fade});
         }
         &::after {
           content: "";
@@ -64,16 +63,22 @@ main { position: relative; }
           aspect-ratio: 1 / 1;
           border-radius: 50%;
           background-color: var(--pink);
-          animation: slide-x $duration ease-in-out infinite alternate;
-          animation-delay: calc((var(--i) - 1) * ($duration / 8));
+          animation: slide-x $timing ease-in-out infinite alternate;
+          animation-delay: calc((var(--i) - 1) * ($timing / 8));
           will-change: left;
         }
       }
 
-      &:hover .circle-path::before { opacity: 1; }
+      &:hover .circle-path::before {
+        transition-delay: calc((var(--i) - 1) * #{$timing});
+        opacity: 1;
+      }
       @media (hover: none) and (pointer: coarse) {
-        &:active .circle-path::before,
-        &:focus-visible .circle-path::before { opacity: 1; }
+        .outer-circle:active .circle-path::before,
+        .outer-circle:focus-visible .circle-path::before {
+          transition-delay: calc((var(--i) - 1) * #{$timing});
+          opacity: 1;
+        }
       }
     }
   }

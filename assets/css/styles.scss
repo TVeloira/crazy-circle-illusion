@@ -5,22 +5,9 @@
   --pink: #ff9fa8ff;
 }
 
-@mixin reveal-paths($count, $path-fade) {
-  @for $i from 1 through $count {
-    .circle-path:nth-child(#{$i})::before {
-      transition-delay: #{($i - 1) * $path-fade};
-      opacity: 1;
-    }
-  }
-}
-
 html, body { margin: 0; padding: 0; }
 body { background-color: var(--blue); }
-h1, p {
-  text-align: center;
-  font-family: sans-serif;
-  margin: 0;
-}
+h1, p { text-align: center; font-family: sans-serif; margin: 0; }
 
 main { position: relative; }
 .crazy-circle {
@@ -42,11 +29,8 @@ main { position: relative; }
       background-color: var(--dark);
 
       /* animation settings */
-      $count: 8;
       $duration: 2s;
-      $delay-step: calc($duration / $count);
-      $step: calc(180deg / $count);
-      $path-fade: calc($duration * 2);
+      $path-fade: $duration * 2;
 
       .circle-path {
         position: absolute;
@@ -54,9 +38,12 @@ main { position: relative; }
         left: 50%;
         width: 100%;
         height: 5%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%) rotate(calc((var(--i) - 1) * 22.5deg));
         box-sizing: border-box;
         overflow: hidden;
+
+        --i: 1;
+
         &::before {
           content: "";
           position: absolute;
@@ -66,6 +53,7 @@ main { position: relative; }
           background: var(--white);
           opacity: 0;
           transition: opacity 0.5s ease;
+          transition-delay: calc((var(--i) - 1) * #{$path-fade});
         }
         &::after {
           content: "";
@@ -77,23 +65,15 @@ main { position: relative; }
           border-radius: 50%;
           background-color: var(--pink);
           animation: slide-x $duration ease-in-out infinite alternate;
+          animation-delay: calc((var(--i) - 1) * ($duration / 8));
           will-change: left;
         }
       }
 
-      @for $i from 1 through $count {
-        .circle-path:nth-child(#{$i}) {
-          transform: translate(-50%, -50%) rotate(#{($i - 1) * $step});
-          &::after { animation-delay: #{($i - 1) * $delay-step}; }
-        }
-      }
-      @media (any-hover: hover) and (any-pointer: fine) {
-        &:hover { @include reveal-paths($count, $path-fade); }
-      }
-      &:hover { @include reveal-paths($count, $path-fade); }
+      &:hover .circle-path::before { opacity: 1; }
       @media (hover: none) and (pointer: coarse) {
-        &:active,
-        &:focus-visible { @include reveal-paths($count, $path-fade); }
+        &:active .circle-path::before,
+        &:focus-visible .circle-path::before { opacity: 1; }
       }
     }
   }

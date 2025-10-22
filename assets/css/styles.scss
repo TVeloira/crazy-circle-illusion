@@ -4,8 +4,23 @@
   --blue: #afe8d8ff;
   --pink: #ff9fa8ff;
 }
+
+@mixin reveal-paths($count, $path-fade) {
+  @for $i from 1 through $count {
+    .circle-path:nth-child(#{$i})::before {
+      transition-delay: #{($i - 1) * $path-fade};
+      opacity: 1;
+    }
+  }
+}
+
 html, body { margin: 0; padding: 0; }
 body { background-color: var(--blue); }
+h1, p {
+  text-align: center;
+  font-family: sans-serif;
+  margin: 0;
+}
 
 main { position: relative; }
 .crazy-circle {
@@ -65,47 +80,26 @@ main { position: relative; }
           will-change: left;
         }
       }
+
       @for $i from 1 through $count {
         .circle-path:nth-child(#{$i}) {
-          transform: translate(-50%, -50%) rotate( #{($i - 1) * $step} );
-          &::after {
-            animation-delay: #{($i - 1) * $delay-step};
-          }
+          transform: translate(-50%, -50%) rotate(#{($i - 1) * $step});
+          &::after { animation-delay: #{($i - 1) * $delay-step}; }
         }
+      }
+      @media (any-hover: hover) and (any-pointer: fine) {
+        &:hover { @include reveal-paths($count, $path-fade); }
+      }
+      &:hover { @include reveal-paths($count, $path-fade); }
+      @media (hover: none) and (pointer: coarse) {
+        &:active,
+        &:focus-visible { @include reveal-paths($count, $path-fade); }
       }
     }
   }
 }
+
 @keyframes slide-x {
   from { left: 0; }
   to   { left: calc(100% - 5%); }
-}
-
-/* Desktop/laptop: hover to show path */
-@media (hover: hover) and (pointer: fine) {
-  .outer-circle {
-    &:hover {
-      @for $i from 1 through $count {
-        .circle-path:nth-child(#{$i})::before {
-          transition-delay: #{($i - 1) * $path-fade};
-          opacity: 1;
-        }
-      }
-    }
-  }
-}
-
-/* Touch devices: tap to show path */
-@media (hover: none) and (pointer: coarse) {
-  .outer-circle {
-    &:active,
-    &:focus-visible {
-      @for $i from 1 through $count {
-        .circle-path:nth-child(#{$i})::before {
-          transition-delay: #{($i - 1) * $path-fade};
-          opacity: 1;
-        }
-      }
-    }
-  }
 }

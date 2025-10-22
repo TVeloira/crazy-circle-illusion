@@ -74,8 +74,8 @@ main { position: relative; }
         opacity: 1;
       }
       @media (hover: none) and (pointer: coarse) {
-        .outer-circle:active .circle-path::before,
-        .outer-circle:focus-visible .circle-path::before {
+        &:active .circle-path::before,
+        &:focus-visible .circle-path::before {
           transition-delay: calc((var(--i) - 1) * #{$timing});
           opacity: 1;
         }

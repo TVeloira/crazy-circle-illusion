@@ -50,7 +50,7 @@ main { position: relative; }
           height: 2px;
           background: var(--white);
           opacity: 0;
-          transition: opacity 0.6s ease;
+          transition: opacity 0.5s ease;
         }
         &::after {
           content: "";
@@ -65,16 +65,20 @@ main { position: relative; }
           will-change: left;
         }
       }
-      @for $i from 1 through 8 {
+      @for $i from 1 through $count {
         .circle-path:nth-child(#{$i}) {
           transform: translate(-50%, -50%) rotate( #{($i - 1) * $step} );
           &::after {
             animation-delay: #{($i - 1) * $delay-step};
           }
         }
-        .outer-circle:hover &::before {
-          transition-delay: #{($i - 1) * $path-fade};
-          opacity: 1;
+      }
+      &:hover {
+        @for $i from 1 through $count {
+          .circle-path:nth-child(#{$i})::before {
+            transition-delay: #{($i - 1) * $path-fade};
+            opacity: 1;
+          }
         }
       }
     }

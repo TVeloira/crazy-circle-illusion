@@ -26,7 +26,7 @@ main { position: relative; }
       position: relative;
       background-color: var(--dark);
 
-      // animation settings
+      /* animation settings */
       $count: 8;
       $duration: 2s;
       $delay-step: calc($duration / $count);
@@ -73,18 +73,39 @@ main { position: relative; }
           }
         }
       }
-      &:hover {
-        @for $i from 1 through $count {
-          .circle-path:nth-child(#{$i})::before {
-            transition-delay: #{($i - 1) * $path-fade};
-            opacity: 1;
-          }
-        }
-      }
     }
   }
 }
 @keyframes slide-x {
   from { left: 0; }
   to   { left: calc(100% - 5%); }
+}
+
+/* Desktop/laptop: hover to show path */
+@media (hover: hover) and (pointer: fine) {
+  .outer-circle {
+    &:hover {
+      @for $i from 1 through $count {
+        .circle-path:nth-child(#{$i})::before {
+          transition-delay: #{($i - 1) * $path-fade};
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+/* Touch devices: tap to show path */
+@media (hover: none) and (pointer: coarse) {
+  .outer-circle {
+    &:active,
+    &:focus-visible {
+      @for $i from 1 through $count {
+        .circle-path:nth-child(#{$i})::before {
+          transition-delay: #{($i - 1) * $path-fade};
+          opacity: 1;
+        }
+      }
+    }
+  }
 }

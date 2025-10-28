@@ -11,7 +11,6 @@ html, body { margin: 0; padding: 0; }
 body { background-color: var(--blue); }
 h1, p { text-align: center; font-family: sans-serif; margin: 0; }
 
-main { position: relative; }
 .crazy-circle {
   box-sizing: border-box;
   width: 100%;
@@ -57,16 +56,11 @@ main { position: relative; }
           aspect-ratio: 1 / 1;
           border-radius: 50%;
           background-color: var(--pink);
-          animation: slide-x $timing ease-in-out infinite alternate;
+          animation: slide-x $timing ease-in-out infinite alternate; 
           animation-delay: calc((var(--i) - 1) * (#{$timing} / #{$numCircles}));
           will-change: left;
         }
         &:nth-child(n + #{$numCircles + 1}) { display: none; };
-      }
-      @for $i from 1 through $numCircles {
-        .circle-path:nth-child(#{$i}) {
-          --i: #{$i};
-        }
       }
       &:hover .circle-path::before {
         transition-delay: calc((var(--i) - 1) * #{$timing});
@@ -82,7 +76,9 @@ main { position: relative; }
     }
   }
 }
-
+@for $i from 1 through $numCircles {
+  .circle-path:nth-child(#{$i}) { --i: #{$i}; }
+}
 @keyframes slide-x {
   from { left: 0; }
   to   { left: calc(100% - 5%); }

@@ -35,7 +35,7 @@ main { position: relative; }
         left: 50%;
         width: 100%;
         height: 5%;
-        transform: translate(-50%, -50%) rotate(calc(var(--i) * (180deg / #{$numCircles})));
+        transform: translate(-50%, -50%) rotate(calc((var(--i) - 1) * (180deg / #{$numCircles})));
         box-sizing: border-box;
         overflow: hidden;
         &::before {
@@ -58,7 +58,7 @@ main { position: relative; }
           border-radius: 50%;
           background-color: var(--pink);
           animation: slide-x $timing ease-in-out infinite alternate;
-          animation-delay: calc(var(--i) * (#{$timing} / #{$numCircles}));
+          animation-delay: calc((var(--i) - 1) * (#{$timing} / #{$numCircles}));
           will-change: left;
         }
         &:nth-child(n + #{$numCircles + 1}) { display: none; };

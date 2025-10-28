@@ -63,6 +63,11 @@ main { position: relative; }
         }
         &:nth-child(n + #{$numCircles + 1}) { display: none; };
       }
+      @for $i from 1 through $numCircles {
+        .circle-path:nth-child(#{$i}) {
+          --i: #{$i};
+        }
+      }
       &:hover .circle-path::before {
         transition-delay: calc((var(--i) - 1) * #{$timing});
         opacity: 1;

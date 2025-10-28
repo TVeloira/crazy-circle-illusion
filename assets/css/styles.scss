@@ -4,6 +4,8 @@
   --blue: #afe8d8ff;
   --pink: #ff9fa8ff;
 }
+$timing: 2s;
+$numCircles: 20;
 
 html, body { margin: 0; padding: 0; }
 body { background-color: var(--blue); }
@@ -27,19 +29,15 @@ main { position: relative; }
       border-radius: 50%;
       position: relative;
       background-color: var(--dark);
-
-      $timing: 2s;
       .circle-path {
         position: absolute;
         top: 50%;
         left: 50%;
         width: 100%;
         height: 5%;
-        transform: translate(-50%, -50%) rotate(calc((var(--i) - 1) * 22.5deg));
+        transform: translate(-50%, -50%) rotate(calc(var(--i) * calc(180deg / #{$numCircles})));
         box-sizing: border-box;
         overflow: hidden;
-
-        --i: 1;
         &::before {
           content: "";
           position: absolute;
@@ -60,11 +58,11 @@ main { position: relative; }
           border-radius: 50%;
           background-color: var(--pink);
           animation: slide-x $timing ease-in-out infinite alternate;
-          animation-delay: calc((var(--i) - 1) * (#{$timing} / 8));
+          animation-delay: calc(var(--i) * (#{$timing} / #{$numCircles}));
           will-change: left;
         }
+        &:nth-child(n + #{$numCircles + 1}) { display: none; };
       }
-
       &:hover .circle-path::before {
         transition-delay: calc((var(--i) - 1) * #{$timing});
         opacity: 1;
